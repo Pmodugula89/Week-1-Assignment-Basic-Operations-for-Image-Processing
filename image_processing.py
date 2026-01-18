@@ -45,17 +45,41 @@ plt.title("Scaled Image (1.5x)")
 plt.axis("off")
 plt.show()
 
-# Simulate different focal lengths
+# ---------------------------------------------------------
+# Simulate different focal lengths (correct zoom-based method)
+# ---------------------------------------------------------
+
 focal_lengths = [50, 100, 200]
+zoom_factors = [f / 50 for f in focal_lengths]  # relative zoom
+
 plt.figure(figsize=(12, 4))
 
-for i, f in enumerate(focal_lengths):
-    f_matrix = np.array([[f, 0, w//2], [0, f, h//2], [0, 0, 1]], dtype=np.float32)  # FIXED: dtype added
-    warped_image = cv2.warpPerspective(image, f_matrix, (w, h))
+for i, zoom in enumerate(zoom_factors):
+    # Compute new size
+    new_w = int(w * zoom)
+    new_h = int(h * zoom)
+
+    # Resize (zoom)
+    zoomed = cv2.resize(image, (new_w, new_h), interpolation=cv2.INTER_LINEAR)
+
+    # Crop or pad back to original size
+    if zoom >= 1:
+        # Crop center
+        start_x = (new_w - w) // 2
+        start_y = (new_h - h) // 2
+        zoomed = zoomed[start_y:start_y+h, start_x:start_x+w]
+    else:
+        # Pad to original size
+        pad_x = (w - new_w) // 2
+        pad_y = (h - new_h) // 2
+        zoomed = cv2.copyMakeBorder(
+            zoomed, pad_y, pad_y, pad_x, pad_x,
+            cv2.BORDER_CONSTANT, value=[0, 0, 0]
+        )
 
     plt.subplot(1, 3, i+1)
-    plt.imshow(cv2.cvtColor(warped_image, cv2.COLOR_BGR2RGB))
-    plt.title(f"Focal Length: {f}")
+    plt.imshow(cv2.cvtColor(zoomed, cv2.COLOR_BGR2RGB))
+    plt.title(f"Focal Length: {focal_lengths[i]}")
     plt.axis("off")
 
 plt.show()
