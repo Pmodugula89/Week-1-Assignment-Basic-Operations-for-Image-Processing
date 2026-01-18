@@ -2,6 +2,7 @@ Image Processing Lab
 This project is part of a beginner-friendly virtual lab designed to explore key concepts in image processing and computer vision using Python, OpenCV, and GitHub Copilot.
 
 Objectives
+
 •	Load and display images using OpenCV and Matplotlib
 •	Apply 2D geometric transformations (rotation, scaling)
 •	Simulate 3D vision concepts (camera focal length)
