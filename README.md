@@ -3,10 +3,10 @@ This project is part of a beginner-friendly virtual lab designed to explore key 
 
 Objectives
 
-•	Load and display images using OpenCV and Matplotlib
-•	Apply 2D geometric transformations (rotation, scaling)
-•	Simulate 3D vision concepts (camera focal length)
-•	Use GitHub for version control and Copilot for coding assistance
+•	Load and display images using OpenCV and Matplotlib 
+•	Apply 2D geometric transformations (rotation, scaling) 
+•	Simulate 3D vision concepts (camera focal length) 
+•	Use GitHub for version control and Copilot for coding assistance 
 
 Tools Used
 •	Python
